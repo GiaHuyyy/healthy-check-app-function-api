@@ -16,7 +16,8 @@ export default async ({ req, res, log, error }) => {
     try {
       const response = await users.listDocuments(databaseId, userCollectionId);
       log(`Total users: ${response.total}`);
-      return res.json(response);
+      return res.json(response.documents);
+      // return res.json(response);
     } catch(err) {
       return res.json(err);
     }
