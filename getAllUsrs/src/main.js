@@ -6,8 +6,6 @@ import { Client, Databases } from 'node-appwrite';
   const databaseId = process.env.databaseId;
   const userCollectionId = process.env.userCollectionId;
 export default async ({ req, res, log, error }) => {
-  // You can use the Appwrite SDK to interact with other services
-  // For this example, we're using the Users service
   const client = new Client()
     .setEndpoint(endpoint)
     .setProject(projectId)
@@ -17,26 +15,12 @@ export default async ({ req, res, log, error }) => {
   if(req.method === 'GET') {
     try {
       const response = await users.listDocuments(databaseId, userCollectionId);
-      return res.json(response.documents);
+      log(`Total users: ${response.total}`);
+      return res.json(response);
     } catch(err) {
       return res.json(err);
     }
   }
-  // try {
-  //   const response = await users.list();
-    // Log messages and errors to the Appwrite Console
-    // These logs won't be seen by your end users
-  //   log(`Total users: ${response.total}`);
-  // } catch(err) {
-  //   error("Could not list users: " + err.message);
-  // }
-
-  // The req object contains the request data
-  // if (req.path === "/ping") {
-    // Use res object to respond with text(), json(), or binary()
-    // Don't forget to return a response!
-    // return res.text("Pong");
-  // }
 
   return res.json({
     motto: "Build like a team of hundreds_",
