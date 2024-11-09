@@ -1,4 +1,4 @@
-import { Client, Users } from 'node-appwrite';
+import { Client, Databases } from 'node-appwrite';
 
 // This Appwrite function will be executed every time your function is triggered
   const endpoint = process.env.endpoint;
@@ -12,12 +12,12 @@ export default async ({ req, res, log, error }) => {
     .setEndpoint(endpoint)
     .setProject(projectId)
     // .setKey(req.headers['x-appwrite-key'] ?? '');
-  const users = new Users(client);
+  const users = new Databases(client);
 
   if(req.method === 'GET') {
     try {
       const response = await users.listDocuments(databaseId, userCollectionId);
-      return res.json(response);
+      return res.json(response.documents);
     } catch(err) {
       return res.json(err);
     }
