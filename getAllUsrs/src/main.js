@@ -17,7 +17,7 @@ export default async ({ req, res, log, error }) => {
   if(req.method === 'GET') {
     try {
       const response = await users.listDocuments(databaseId, userCollectionId);
-      return res.json(response.documents);
+      return res.json(response);
     } catch(err) {
       return res.json(err);
     }
